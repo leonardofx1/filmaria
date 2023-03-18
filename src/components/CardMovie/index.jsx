@@ -1,15 +1,15 @@
 
 
-const CardMovie = () => {
+const CardMovie = ({title, vote_average, poster_path}) => {
+console.log(title,vote_average)
+    const apiImg = 'https://image.tmdb.org/t/p/w500/'
 
     return (
         <main>
-            <ul>
-                <li>rated</li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li><button type='text'>Details </button></li>
+            <ul className='card__corpo'>
+                <li className='card__img'><img src={apiImg + poster_path} alt={title} /><span>{vote_average}</span> </li>
+                <li>{title}</li>
+            
             </ul>
         </main>
     )

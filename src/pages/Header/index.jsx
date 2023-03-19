@@ -7,7 +7,7 @@ const Header = () => {
     return (
       <nav>
         <ul className='cabecalho__links'>
-            <li ><Link className='home__link'> Filmaria</Link></li>
+            <li ><Link className='home__link' to='/'> Filmaria</Link></li>
           <li>
             <input type="text"  className='input__seach'/>
             <button className='btn__seach' > Buscar</button></li>

@@ -16,11 +16,12 @@ useEffect(() => {
 
       setData(data.results)
     }
-
+  
     fetchRepos(apiURl + apiKey)
   },[])
   return (
     <main className='container__movies'>
+    
       {data.length > 0&& data.map(movie => {
         return (
           

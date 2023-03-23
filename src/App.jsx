@@ -1,5 +1,5 @@
 import {Outlet} from 'react-router-dom';
-import Header from './pages/Header';
+import Header from './components/Header';
 
 import reset from './assets/style/reset.scss';
 import Footer from './components/Footer';

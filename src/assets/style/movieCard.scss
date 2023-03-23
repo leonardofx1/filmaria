@@ -1,5 +1,6 @@
 .container__movies {
-    width: 940px;
+    width: 80%;
+    min-width: auto;
     height: auto;
     margin: 1rem  auto;
     display: flex;
@@ -17,7 +18,7 @@
     color: white;
     font-weight: bold;
     border-bottom: 2px solid rgb(14, 151, 14) ;
-    margin-bottom: 1rem;
+    margin: 1.5rem 0;
     padding: 0 0 10px 0;
     overflow: hidden;
     &:hover .votos {
@@ -80,4 +81,11 @@
         bottom: 0;
     }
 
+}
+
+@media screen and (max-width: 600px) {
+    .card__corpo {
+        width: 100%;
+        height: auto;
+    }
 }

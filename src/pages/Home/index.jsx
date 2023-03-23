@@ -27,7 +27,7 @@ useEffect(() => {
         return (
           
           <CardMovie title={movie.title} vote_average={movie.vote_average} poster_path={movie.poster_path} id={movie.id} />
-       
+  
         )
       })}
      </main>

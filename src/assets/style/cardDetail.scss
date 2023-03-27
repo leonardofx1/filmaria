@@ -13,7 +13,7 @@
     min-width: 300px;
     text-align:start;
     margin: 2rem auto;
-    padding:.5rem;
+    padding:.8rem;
     li {
         color:white;
         font-weight: bold;
@@ -25,4 +25,15 @@
         min-width:250px;
 
     }
+}
+
+@media  screen and (max-width:500px) {
+    .card__corpo__detail {
+        width: 100%;
+        li img {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+
 }

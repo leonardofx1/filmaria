@@ -6,8 +6,10 @@ import cardDetail from '../../assets/style/cardDetail.scss'
 
 
 function MovieDetails() {
-  const [budget, setBudget] = useState(null)
-  const [revenue, setRevenue]= useState(null)
+  const [movie, setMovie] = useState([])
+  const [budget, setBudget] = useState(0)
+  const [revenue, setRevenue]= useState(0)
+  const [showInfo, setShowInfo] = useState(false)
 
   const { id } = useParams()
 
@@ -15,18 +17,28 @@ function MovieDetails() {
   const apiURl = 'https://api.themoviedb.org/3/movie/'
   const apiImg = 'https://image.tmdb.org/t/p/w500/'
 
-  const [movie, setMovie] = useState([])
-  const fetchRepos = async (url) => {
-    const repos = await fetch(url)
-    const movieJson = await repos.json()
 
+  const fetchRepos = async (url) => {
+    try  {
+      const repos = await fetch(url)
+
+      if(!repos.ok) {
+        new Error('não foi possivel obter os dados do filme')
+      }
+        
+    const movieJson = await repos.json()
     setMovie(movieJson)
+  }
+    catch(error) {
+      console.error(error.menssage)
+    }
   }
 
   useEffect(() => {
     const url = `${apiURl}${id}${apiKey}`
 
     fetchRepos(url)
+
   }, [])
 
 
@@ -39,36 +51,50 @@ function MovieDetails() {
 
 useEffect(() => {
   setTimeout(()=> {
+    console.log(movie.budget)
       const format = formatCurrency(movie.budget)
       setBudget(format)
     }, 500)
    setTimeout (()=>{
+    console.log(movie.revenue)
     const format = formatCurrency(movie.revenue)
     setRevenue(format)
    },500)
+ 
 }, [movie])
+
+useEffect(() => {
+
+    setShowInfo(movie?.budget > 0 && movie?.revenue > 0 )
+}, [budget,revenue])
 
   return (
 
   <div>
-    {movie &&
+    {
+    movie &&
       (<main className='conteiner__detail'>
-        <ul className='card__corpo__detail'>
-          <li><img src={apiImg + movie.poster_path} /></li>
+        <ul key={1} className='card__corpo__detail'>
+          <li ><img src={apiImg + movie.poster_path} /></li>
           <li><p>Titulo:</p>
-            {
-          movie.title}</li>
-          <li><p> <BsWallet2 /> Orçamento</p>
+          {movie.title}</li>
+          { showInfo && <>
+          <li> <BsWallet2 />
+          <p> Orçamento</p>
             {budget}</li>
-          <li><p> <BsGraphUp />Receita:</p>
+          <li >
+            <p> <BsGraphUp />Receita:</p>
           {revenue}
-         </li>
-          <li><p>Popularidade:</p>
+         </li></>}
+          <li><
+            p>Popularidade:</p>
             {movie.popularity}</li>
-          <li> <BsHourglassSplit />{movie.runtime}</li>
-          <li><p> <BsFillFileEarmarkTextFill />Descrição:</p>{movie.overview}</li>
-          {console.log(budget, movie.budget)}
-        </ul>
+          <li > <p>Duração:</p>
+          <BsHourglassSplit />{movie.runtime}</li>
+          <li>
+            <p> <BsFillFileEarmarkTextFill />Descrição:</p>
+          {movie.overview}</li>
+        </ul>   
       </main>)}
   </div>
   )

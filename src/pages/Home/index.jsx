@@ -9,11 +9,24 @@ function Home() {
   const apiURl ='https://api.themoviedb.org/3/movie/top_rated?api_key='
 
   const [data, setData] =useState([])
-  const fetchRepos = async (url) => {
-    const repos = await fetch(url)
-    const data = await repos.json()
 
+  const fetchRepos = async (url) => {
+    try {
+      const repos = await fetch(url)
+
+      if(!repos.ok) {
+        new Error('não foi possivel obter os dados')
+      }
+      const data = await repos.json()
+       
     setData(data.results)
+
+      } catch (error) {
+        console.error(error.mensage)
+      }
+    
+
+   
   }
 useEffect(() => {
   
@@ -23,10 +36,10 @@ useEffect(() => {
     <main className='container__movies'>
     
       {
-      data.length > 0&& data.map(movie => {
+      data.length > 0&& data.map((movie, index) => {
         return (
           
-          <CardMovie title={movie.title} vote_average={movie.vote_average} poster_path={movie.poster_path} id={movie.id} />
+          <CardMovie  key={index}title={movie.title} vote_average={movie.vote_average} poster_path={movie.poster_path} id={movie.id} />
   
         )
       })}
